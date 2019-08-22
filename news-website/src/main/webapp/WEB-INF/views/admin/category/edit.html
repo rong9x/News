@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title>News website management</title>
+</head>
+<body style="padding: 10px; background-color: #F8F8FF;">
+<div class="container-fluid">
+    <p align="right">English | Vietnamese</p>
+    <h1>Admin management</h1>
+</div>
+<th:block th:if="${message}">
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <p th:text="${message}"></p>
+    </div>
+</th:block>
+<div class="row" style="padding-top: 10px">
+
+    <div class="col-sm-2">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-success"><a href="/admin/category">Manage categories</a></li>
+            <li class="list-group-item list-group-item-info"><a href="/admin/post">Manage posts</a></li>
+        </ul>
+    </div>
+
+    <div class="col-sm-8">
+        <form action="/admin/edit-category" th:object="${category}" method="post">
+            <input th:type="hidden" name="id" th:field="*{id}">
+            <div class="form-group">
+                <label>Category name:</label>
+                <input type="text" required class="form-control" id="catName" th:field="*{categoryName}">
+            </div>
+            <p>
+                <input type="submit" class="btn btn-outline-info" value="Update category">
+                <a href="/admin/category" class="btn btn-outline-danger">Cancel</a>
+            </p>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

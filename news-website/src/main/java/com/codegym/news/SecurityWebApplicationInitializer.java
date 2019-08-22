@@ -1,0 +1,6 @@
+package com.codegym.news;
+
+import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
+
+public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer {
+}

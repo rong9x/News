@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title>News website management</title>
+</head>
+<body style="padding: 10px; background-color: #F8F8FF;">
+<div class="container-fluid">
+    <p align="right">English | Vietnamese</p>
+    <h2>Admin management</h2>
+</div>
+
+<div class="row" style="padding-top: 10px">
+
+    <div class="col-sm-2">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-success"><a href="/admin/category">Manage categories</a></li>
+            <li class="list-group-item list-group-item-info"><a href="/admin/post">Manage posts</a></li>
+        </ul>
+    </div>
+
+    <div class="col-sm-8">
+        <table class="table" border="0px">
+            <tr>
+                <td align="left">
+                    <p>
+                        <a href="/admin/create-post">
+                            <input type="submit" class="btn btn-outline-primary" value="Create new post">
+                        </a>
+                    </p>
+                </td>
+                <form>
+                    <td align="right">
+                        <input name="s" type="text" class="form-control" placeholder="Search by title..."/>
+                    </td>
+                    <td>
+                        <input type="submit" class="btn btn-outline-info" value="Search"/>
+                    </td>
+                </form>
+            </tr>
+        </table>
+
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="thead-dark">
+            <tr align="center">
+                <th>Post title</th>
+                <th>Category</th>
+                <th>Introduce</th>
+                <th>Author</th>
+                <th>Post date</th>
+                <th>Last edit date</th>
+                <th colspan="2">Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <th:block th:each="p : ${posts}">
+                <tr>
+                    <td th:text="${p.tittle}"></td>
+                    <td th:text="${p.category.categoryName}"></td>
+                    <td th:utext="${p.introduce}"></td>
+                    <td th:text="${p.author}"></td>
+                    <td th:text="${p.postDate}"></td>
+                    <td th:text="${p.lastEditDate}"></td>
+                    <td align="center">
+                        <a th:href="@{edit-post/__${p.id}__}">
+                            <input type="submit" class="btn btn-outline-info" value="Edit">
+                        </a>
+                    </td>
+                    <td align="center">
+                        <a th:href="@{delete-post/__${p.id}__}">
+                            <input type="submit" class="btn btn-outline-danger" value="Delete">
+                        </a>
+                    </td>
+                </tr>
+            </th:block>
+
+            </tbody>
+        </table>
+        <div>
+            <ul class="pagination justify-content-center mb-4">
+                <li class="page-item">
+                    <a class="page-link" th:href="@{'post'(page=${posts.number - 1})}"
+                       th:if="${posts.hasPrevious()}">&larr; Older</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" th:href="@{'post'(page=${posts.number + 1})}"
+                       th:if="${posts.hasNext()}">Newer &rarr;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
